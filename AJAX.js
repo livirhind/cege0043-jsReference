@@ -5,7 +5,7 @@ var filename = document.getElementById("filename").value;
 xhrNode.open("GET", filename, true);
 xhrNode.onreadystatechange = processDivNodeJSChange;
 try {
-xhrNode.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xhrNode.setRequestHeader("Content-Type", "application/x-www-formurlencoded");
 }
 catch (e) {
 // this only works in internet explorer
