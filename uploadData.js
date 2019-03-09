@@ -36,10 +36,10 @@ function startDataUpload(){
 }
 
 var client;  // the global variable that holds the request
-var httpPortNumber = '30309'
+
 function processData(postString) {
     client = new XMLHttpRequest();
-    postString = postString + "&port_id=30309" + httpPortNumber;
+    postString = postString + "&port_id=" + httpPortNumber;
     var url = 'http://developer.cege.ucl.ac.uk:' + httpPortNumber + "/uploadData";
     client.open('POST', url, true);
     client.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

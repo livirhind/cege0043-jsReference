@@ -116,5 +116,3 @@ mymap.closePopup();
 //that the user picked
 }
 
-
-				
