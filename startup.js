@@ -13,9 +13,9 @@ function startup() {
 	document.addEventListener('DOMContentLoaded', function(){
 		loadW3HTML();
 	},false);
-	document.addEventListener('DOMContentLoaded', function(){
-		startFormDataLoad();
-	},false);
+	//document.addEventListener('DOMContentLoaded', function(){
+		//startFormDataLoad();
+	//},false);
 }
 
 
