@@ -12,14 +12,7 @@ function startQuestionUpload(){
 	var longitude = document.getElementById("longitude").value;
 	//put values in postring to send to the server
 	var postString="question_title="+question_title +"&question_text="+question_text+"&answer_1="+answer_1 + "&answer_2="+ answer_2 + "&answer_3="+answer_3+"&answer_4="+answer_4
-	+"&correct_answer="+correct_answer+ "&latitude=" + latitude + "&longitude=" + longitude ;
-	//managing the select button, checkbox and radio buttons 
-	var checkString = "";
-	for (var i = 1; i<5;i++){
-		if (document.getElementById("check"+i).checked === true){
-			checkString = checkString + document.getElementById("check"+i).value + "||"
-		}
-	}
+	+"&correct_answer="+correct_answer+ "&latitude=" + latitude + "&longitude=" + longitude;
 	
 	alert(postString);
 	//calling the processing function
