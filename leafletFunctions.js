@@ -84,7 +84,7 @@ htmlString = htmlString + "</div>";
 return L.marker(latlng).bindPopup(htmlString);
 },
 }).addTo(mymap);
-mymap.fitBounds(formLayer.getBounds());
+//mymap.fitBounds(formLayer.getBounds());
 }
 
 function checkAnswer(questionID) {
@@ -138,7 +138,7 @@ closestFormPoint = layer.feature.properties.id;
 // for this to be a proximity alert, the minDistance must be
 // closer than a given distance - you can check that here
 // using an if statement
-// show the popup for the closest point
+// show the popup for the closest point to the set location
 formLayer.eachLayer(function(layer) {
 if (layer.feature.properties.id == closestFormPoint){
 layer.openPopup();
