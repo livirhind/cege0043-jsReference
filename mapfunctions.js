@@ -29,19 +29,20 @@ var testMarkerPink = L.AwesomeMarkers.icon({
 	function QuizPointsResponse(){
 		//this function listens for the server to say that the data is ready 
 		if (xhrQuizPoints.readyState == 4){
+			console.log();
 			//once the data is ready, process the data
-			var quizData = xhrQuizPoints.responseText;
-			loadQuizData(quizData);
+			var quizPoints = xhrQuizPoints.responseText;
+			loadQuizPoints(quizPoints);
 		}
 	}
 	// convert the received data - which is text to JSON format and add it to the map 
 var quizLayer;
-function loadQuizData(quizData){
+function loadQuizPoints(quizPoints){
 	//convert the text to JSON
-	var quizJSON = JSON.parse(quizData);
+	var quizPointsjson = JSON.parse(quizPoints);
 	
 	// add the JSON layer onto the map - it will appear using the default icons
-	quizlayer = L.geoJSON(quizDataJSON,
+	quizlayer = L.geoJSON(quizPointsjson,
 		{ 
 			pointToLayer: function(feature, latlng)
 			{
