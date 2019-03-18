@@ -23,12 +23,6 @@ var testMarkerPink = L.AwesomeMarkers.icon({
 		url = url +"/getQuizPoints/"+httpPortNumber;
 		xhrQuizPoints.open("GET",url,true);
         xhrQuizPoints.onreadystatechange = QuizPointsResponse;  
-        try {
-        xhrQuizPoints.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        }
-        catch (e) {
-	   // this only works in internet explorer
-     }
         xhrQuizPoints.send();
 	}
 	//The code to wait for the response from the data server, and process once it is received 
@@ -44,7 +38,7 @@ var testMarkerPink = L.AwesomeMarkers.icon({
 var quizLayer;
 function loadQuizData(quizData){
 	//convert the text to JSON
-	var formJSON = JSON.parse(quizData);
+	var quizJSON = JSON.parse(quizData);
 	
 	// add the JSON layer onto the map - it will appear using the default icons
 	quizlayer = L.geoJSON(quizDataJSON,
