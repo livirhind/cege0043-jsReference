@@ -13,67 +13,51 @@ var testMarkerPink = L.AwesomeMarkers.icon({
 	icon: 'play',
 	markerColor: 'pink'
 });
-// function that when called will add a point, line and polygon to the map 
-function addPointLinePoly () {
- // add a point
-        L.marker([51.5, -0.09]).addTo(mymap).bindPopup("<b> Hello world!</b><br/>I am a popup.").openPopup();
-        // add a circle
-        L.circle([51.508, -0.11], 500, {
-        	color: 'red', 
-        	fillColor: '#f03',
-        	fillOpacity: 0.5
-        }).addTo(mymap).bindPopup("I am a circle.");
-        // add a polygon with 3 end points 
-        var myPolygon = L.polygon([
-        	[51.509, -0.08],
-        	[51.503, -0.06],
-        	[51.51, -0.047]
-        	],{
-        		color: 'red',
-				fillColor: '#f03',
-				fillOpacity: 0.5
-			}).addTo(mymap).bindPopup("I am a triangle.");
 
-
-    }
- //create the code to get the Earthquakes data using an XMLHttpRequest
-	var xhrFormData
-	function startFormDataLoad(){
-		alert('Getting the form data')
-		xhrFormData = new XMLHttpRequest();
+ //creating the AJAX request to get the Questions data using an XMLHttpRequest
+	var xhrQuizPoints;
+	function getQuizPoints(){
+		alert('Getting the quiz data')
+		xhrQuizPoints = new XMLHttpRequest();
 		var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
-		url = url +"/getGeoJSON/formdata/geom/"+httpPortNumber;
-		xhrFormData.open("GET",url,true)
-        xhrFormData.onreadystatechange = formDataResponse; // note don't use earthquakeResponse() withh brackets as that doesn't work 
-        xhrFormData.send();
+		url = url +"/getQuizPoints/"+httpPortNumber;
+		xhrQuizPoints.open("GET",url,true);
+        xhrQuizPoints.onreadystatechange = QuizPointsResponse;  
+        try {
+        xhrQuizPoints.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        }
+        catch (e) {
+	   // this only works in internet explorer
+     }
+        xhrQuizPoints.send();
 	}
-	// create the code to wait for the response from the data server, and process once it is received 
-	function formDataResponse(){
+	//The code to wait for the response from the data server, and process once it is received 
+	function QuizPointsResponse(){
 		//this function listens for the server to say that the data is ready 
-		if (xhrFormData.readyState == 4){
+		if (xhrQuizPoints.readyState == 4){
 			//once the data is ready, process the data
-			var formData = xhrFormData.responseText;
-			loadFormData(formData);
+			var quizData = xhrQuizPoints.responseText;
+			loadQuizData(quizData);
 		}
 	}
 	// convert the received data - which is text to JSON format and add it to the map 
-var formLayer;
-function loadFormData(formData){
+var quizLayer;
+function loadQuizData(quizData){
 	//convert the text to JSON
-	var formJSON = JSON.parse(formData);
+	var formJSON = JSON.parse(quizData);
 	
 	// add the JSON layer onto the map - it will appear using the default icons
-	formlayer = L.geoJSON(formJSON,
+	quizlayer = L.geoJSON(quizDataJSON,
 		{ 
 			pointToLayer: function(feature, latlng)
 			{
 				//in this case we build an HTML DIV string, using the values in the data
-var htmlString = "<DIV id='popup'"+ feature.properties.id + "><h2>" + feature.properties.name + "</h2><br>";
-htmlString = htmlString + "<h3>"+feature.properties.surname + "</h3><br>";
-htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_1'/>"+feature.properties.module+"<br>";
-htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_2'/>"+feature.properties.language+"<br>";
-htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_3'/>"+feature.properties.lecturetime+"<br>";
-htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_4'/>"+feature.properties.port_id+"<br>";
+var htmlString = "<DIV id='popup'"+ feature.properties.id + "><h2>" + feature.properties.question_ title + "</h2><br>";
+htmlString = htmlString + "<h3>"+feature.properties.question_text + "</h3><br>";
+htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_1'/>"+feature.properties.answer_1+"<br>";
+htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_2'/>"+feature.properties.answer_2+"<br>";
+htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_3'/>"+feature.properties.answer_3+"<br>";
+htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_4'/>"+feature.properties.answer_4+"<br>";
 htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.id + ");return false;'>Submit Answer</button>";
 // now include a hidden element with the answer
 // in this case the answer is alwasy the first choice
@@ -84,7 +68,7 @@ htmlString = htmlString + "</div>";
 return L.marker(latlng).bindPopup(htmlString);
 },
 }).addTo(mymap);
-mymap.fitBounds(formLayer.getBounds());
+mymap.fitBounds(quizLayer.getBounds());
 }
 
 function checkAnswer(questionID) {
