@@ -37,6 +37,7 @@ var testMarkerPink = L.AwesomeMarkers.icon({
 	}
 
 	function onClick(e) {
+		document.getElementById("question").innerHTML = htmlString;
 }
 	// convert the received data - which is text to JSON format and add it to the map 
 var quizLayer;
@@ -64,7 +65,7 @@ htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.i
 htmlString = htmlString + "<div id=answer" + feature.properties.id +" hidden>1</div>";
 htmlString = htmlString + "</div>";
 return L.marker(latlng).on('click', onClick);
-document.getElementById("question").innerHTML = htmlString;
+
 },
 }).addTo(mymap);
 
