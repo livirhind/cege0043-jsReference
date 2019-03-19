@@ -1,7 +1,7 @@
 var client;
 //var earthquakes;
 //var earthquakelayer;
-var httpPortNumber = '30309';
+
 
 
 var testMarkerRed= L.AwesomeMarkers.icon({
