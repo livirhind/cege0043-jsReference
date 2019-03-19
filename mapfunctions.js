@@ -60,9 +60,8 @@ htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.i
 //feature.properties.correct_answer
 htmlString = htmlString + "<div id=answer" + feature.properties.id +" hidden>1</div>";
 htmlString = htmlString + "</div>";
+return L.marker(latlng).onclick();
 document.getElementById("question").innerHTML = htmlString;
-return L.marker(latlng).openPopup();
-
 },
 }).addTo(mymap);
 
