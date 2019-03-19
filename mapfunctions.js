@@ -47,7 +47,7 @@ function loadQuizPoints(quizPoints){
 			pointToLayer: function(feature, latlng)
 			{
 				//in this case we build an HTML DIV string, using the values in the data
-var htmlString = "<DIV id='popup'"+ feature.properties.id + "><h2>" + feature.properties.question_title + "</h2><br>";
+var htmlString = feature.properties.id + "><h2>" + feature.properties.question_title + "</h2><br>";
 htmlString = htmlString + "<h3>"+feature.properties.question_text + "</h3><br>";
 htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_1'/>"+feature.properties.answer_1+"<br>";
 htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_2'/>"+feature.properties.answer_2+"<br>";
@@ -60,8 +60,8 @@ htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.i
 //feature.properties.correct_answer
 htmlString = htmlString + "<div id=answer" + feature.properties.id +" hidden>1</div>";
 htmlString = htmlString + "</div>";
-return L.marker(latlng).openPopup();
-document.getElementById('htmlString').innerHTML;
+return L.marker(latlng);
+document.getElementById("question").innerHTML = htmlString;
 },
 }).addTo(mymap);
 //mymap.fitBounds(quizLayer.getBounds());
