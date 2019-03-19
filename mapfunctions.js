@@ -48,7 +48,7 @@ function loadQuizPoints(quizPoints){
 			{
 				return L.marker(latlng).openPopup();
 				//in this case we build an HTML DIV string, using the values in the data
-var htmlString = "<DIV id='popup'"+ feature.properties.id + "><h2>" + feature.properties.question_title + "</h2><br>";
+var htmlString = feature.properties.id + "><h2>" + feature.properties.question_title + "</h2><br>";
 htmlString = htmlString + "<h3>"+feature.properties.question_text + "</h3><br>";
 htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_1'/>"+feature.properties.answer_1+"<br>";
 htmlString = htmlString + "<input type='radio' name='answer' id='"+feature.properties.id+"_2'/>"+feature.properties.answer_2+"<br>";
@@ -59,8 +59,7 @@ htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.i
 // in this case the answer is alwasy the first choice
 // for the assignment this will of course vary - you can use
 //feature.properties.correct_answer
-htmlString = htmlString + "<div id=answer" + feature.properties.id +" hidden>1</div>";
-htmlString = htmlString + "</div>";
+htmlString = htmlString + feature.properties.id ;
 document.getElementById('popup').innerHTML = htmlString;
 },
 }).addTo(mymap);
