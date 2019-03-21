@@ -1,3 +1,5 @@
+//Reference: Adapted from uploadData.js used in practicals from week 5 and week 6 
+
 function startQuestionUpload(){
 	
 	//receive the text box values
