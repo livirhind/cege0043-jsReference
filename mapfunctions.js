@@ -1,19 +1,5 @@
 var client;
-//var earthquakes;
-//var earthquakelayer;
-
-
-
-var testMarkerRed= L.AwesomeMarkers.icon({
-	icon:'play',
-	markerColor: 'red'
-
-});
-var testMarkerPink = L.AwesomeMarkers.icon({
-	icon: 'play',
-	markerColor: 'pink'
-});
-
+//Reference: adapted from the LeafletFunctions.js used in practical 6 
  //creating the AJAX request to get the Questions data using an XMLHttpRequest
 	var xhrQuizPoints;
 	function getQuizPoints(){
