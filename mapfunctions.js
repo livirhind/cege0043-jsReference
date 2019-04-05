@@ -28,7 +28,7 @@ var quizLayer;
 function loadQuizPoints(quizPoints){
 	//convert the text to JSON
 	var quizPointsjson = JSON.parse(quizPoints);
-	
+	//question will appear in a popup instead of a div 
 	// add the JSON layer onto the map - it will appear using the default icons
 	quizlayer = L.geoJSON(quizPointsjson,
 		{ 
@@ -45,13 +45,11 @@ htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.i
 // now include a hidden element with the answer
 // in this case the answer is always the first choice
 // for the assignment this will of course vary - you can use
-//feature.properties.correct_answer
+//feature.properties.correct_answer 
 htmlString = htmlString + "<div id=answer" + feature.properties.id +" hidden>1</div>";
 htmlString = htmlString + "</div>";
-return L.marker(latlng).on('click', onClick);
-function onClick(e) {
-		document.getElementById("question").innerHTML = htmlString;
-}
+return L.marker(latlng).bindPopup(htmlString);
+
 },
 }).addTo(mymap);
 
