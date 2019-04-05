@@ -1,18 +1,20 @@
 var popup=L.popup();
-var latitude;
-var longitude;
+var latitude
+var longitude
 // create an event detector to wait for the user's click (listener) and use the popup previously created to show them the coordinates of the point they cicked on
 // Leaflet API converts screen coordinates to real world coordinates for you
 // core functionality 2 the lat/lng of the question point is automatically entered when the user clicks on the map in the question setting app
 //Reference: Adapted from Practical 2 simpleMapGeoJSON.html, cleaning up the text of the returned latitude and longitude so it can be inputted into question table without comma and brackets from Leaflet.js Essentials by Paul Crickard III 
 function onMapClick(e){
-	popup.setLatLng(e.latlng);
-    var coord = e.latlng
+	popup
+	     .setLatLng(e.latlng)
+         .setContent("Question Coordinates, please fill in the form below:" + e.latlng.toString())
+         .openOn(mymap);
+    var coord = e.latlng;
     latitude =  coord.lat
     longitude = coord.lng
-		popup.setContent("Question Coordinates: " + latitude + "," + longitude "Fill in the form below");
-		.openOn(mymap);
-}
+		
+		}
 // add the click event detector to the map
 mymap.on('click',onMapClick);
 
