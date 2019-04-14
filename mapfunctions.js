@@ -62,21 +62,32 @@ function checkAnswer(questionID) {
 // NB - do this BEFORE you close the pop-up as when you close the pop-up the
 //DIV is destroyed
 var answer = document.getElementById("answer"+questionID).innerHTML;
+
 // now check the question radio buttons
 var correctAnswer = false;
 var answerSelected = 0;
+
+//collecting the variables for the poststring from the radio buttons 
+var postString = "&question_id=" + questionID;
+
 for (var i=1; i < 5; i++) {
 if (document.getElementById(questionID+"_"+i).checked){
 answerSelected = i;
+postString = postString + "&answer_selected" + i;
+
+
 }
 if ((document.getElementById(questionID+"_"+i).checked) && (i ==answer)) {
 	alert ("Well done");
 correctAnswer = true;
+postString = postString + "&correct_answer=" + i;
 }
 }
+//user selects the wrong answer
 if (correctAnswer === false) {
 // they didn't get it right
 alert("Better luck next time");
+postString = postString + "&correct_answer=" +answer; 
 
 }
 // now close the popup
@@ -85,39 +96,15 @@ mymap.closePopup();
 // call an AJAX routine using the data
 // the answerSelected variable holds the number of the answer
 //that the user picked
-var question_id= questionID;
+uploadAnswer(postString); //upload the answer to quizanswers database in the server
 
-var answer_selected= answerSelected;
-var correct_answer=answer;
-var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
-alert(postString);
-	//calling the processing function
-	processData(postString);
 }
 
-//Reference: Adapted from uploadData.js used in practicals from week 5 and week 6 
-//Adapted uploadData.js to upload the answer instead of the question as seen in uploadQuestion.js in the Question setting App repository 
-//function startAnswerUpload(){
-	//alert("start answer upload");
-	//receive the text box values
-	//var question_id= questionID;
-	//alert(question_id);
-	//var answer_selected= answerSelected;
-	//alert(answer_selected);
-	//var correct_answer=answer;
-	//alert(correct_answer);
-	//put values in poststring to send to the server, into database quizanswers
-	//var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
-	
-	//alert(postString);
-	//calling the processing function
-	//processData(postString);
-//}
 
 var client2;  // the global variable that holds the request, client was used for the uploadQuestion
 
 //Reference: Adapted from Practical 6 and 7
-function processData(postString) {
+function uploadAnswer(postString) {
     client2 = new XMLHttpRequest();
     postString = postString + "&port_id=" + httpPortNumber;
     var url = 'http://developer.cege.ucl.ac.uk:' + httpPortNumber + "/uploadAnswer";
@@ -131,8 +118,9 @@ function processData(postString) {
 function answerUpload() {
 	//function listens out for the server to say that the data is ready
 	if (client2.readyState == 4){
-		//change the DIV to show the response
+	//change the DIV to show the response
 		document.getElementById("answerUploadResult").innerHTML= client2.responseText;
-	}
+		}
 }
+
 
