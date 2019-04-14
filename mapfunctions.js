@@ -99,24 +99,7 @@ alert(postString);
 	processData(postString);
 }
 
-//Reference: Adapted from uploadData.js used in practicals from week 5 and week 6 
-//Adapted uploadData.js to upload the answer instead of the question as seen in uploadQuestion.js in the Question setting App repository 
-//function startAnswerUpload(){
-	//alert("start answer upload");
-	//receive the text box values
-	//var question_id= questionID;
-	//alert(question_id);
-	//var answer_selected= answerSelected;
-	//alert(answer_selected);
-	//var correct_answer=answer;
-	//alert(correct_answer);
-	//put values in poststring to send to the server, into database quizanswers
-	//var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
-	
-	//alert(postString);
-	//calling the processing function
-	//processData(postString);
-//}
+
 
 var client2;  // the global variable that holds the request, client was used for the uploadQuestion
 
