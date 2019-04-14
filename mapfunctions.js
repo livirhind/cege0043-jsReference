@@ -85,26 +85,34 @@ mymap.closePopup();
 // call an AJAX routine using the data
 // the answerSelected variable holds the number of the answer
 //that the user picked
+var question_id= questionID;
+
+var answer_selected= answerSelected;
+var correct_answer=answer;
+var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
+alert(postString);
+	//calling the processing function
+	processData(postString);
 }
 
 //Reference: Adapted from uploadData.js used in practicals from week 5 and week 6 
 //Adapted uploadData.js to upload the answer instead of the question as seen in uploadQuestion.js in the Question setting App repository 
-function startAnswerUpload(){
-	alert("start answer upload");
+//function startAnswerUpload(){
+	//alert("start answer upload");
 	//receive the text box values
-	var question_id= document.getElementById("questionID").value;
-	alert(question_id);
-	var answer_selected= document.getElementById("answerSelected").value;
-	alert(answer_selected);
-	var correct_answer= document.getElementById("answer").value;
-	alert(correct_answer);
+	//var question_id= questionID;
+	//alert(question_id);
+	//var answer_selected= answerSelected;
+	//alert(answer_selected);
+	//var correct_answer=answer;
+	//alert(correct_answer);
 	//put values in poststring to send to the server, into database quizanswers
-	var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
+	//var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
 	
-	alert(postString);
+	//alert(postString);
 	//calling the processing function
-	processData(postString);
-}
+	//processData(postString);
+//}
 
 var client2;  // the global variable that holds the request, client was used for the uploadQuestion
 
@@ -122,9 +130,9 @@ function processData(postString) {
 //create the code to wait for the response from the data server, and process the response once it is received
 function answerUpload() {
 	//function listens out for the server to say that the data is ready
-	if (client.readyState == 4){
+	if (client2.readyState == 4){
 		//change the DIV to show the response
-		document.getElementById("answerUploadResult").innerHTML= client.responseText;
+		document.getElementById("answerUploadResult").innerHTML= client2.responseText;
 	}
 }
 
