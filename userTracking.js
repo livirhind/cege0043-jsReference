@@ -1,5 +1,8 @@
-        var userMarker;
+        var markeruser;
 
+     
+       
+      //function to zoom into the location of the user, will also display the location of the quiz points
         function zoomOnMap(){
         	alert('Zooming in to display your location');
         	navigator.geolocation.getCurrentPosition(getPosition);
@@ -8,7 +11,7 @@
         function getPosition(position){
         	mymap.setView([position.coords.latitude, position.coords.longitude],15);
         }
-
+        //Reference: Function to track the location of the user taken from Practical 2: Location based services via HTML5
         function trackLocation(){
 			if (navigator.geolocation){
 				navigator.geolocation.watchPosition(showPosition);
@@ -18,51 +21,19 @@
 				document.getElementById('showLocation').innerHTML = "Geolocation is not supported by this browser.";
 			}
 		}
-
+        
+        //Reference: Function taken from Practical 2 to show the position of the user 
          function showPosition(position){
-         	if(userMarker){
-         		mymap.removeLayer(userMarker);
+         	if(markeruser){
+         		mymap.removeLayer(markeruser);
          	}
-	        userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You were here</b>");
+	        markeruser = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You are here</b>");
             document.getElementById('showLocation').innerHTML = 'Latitude:' + position.coords.latitude + '<br>Longitude:' + position.coords.longitude;
-            getDistance();
 	         }
 
-	 function getDistance(){
-	//getDistanceFromPoint is the function called once the distance has been found
-	//alert('Getting distance')
-	navigator.geolocation.getCurrentPosition(getDistanceFromMultiplePoints);
-}
-function getDistanceFromPoint(position){
-	var lat = 51.524616;
-	var lng = -0.13818;
-	var distance = calculateDistance(position.coords.latitude, position.coords.longitude, lat, lng, 'K');
-	if (distance <= 0.1){
-		alert("Within proximity of UCL campus (100m)");
-	}
-}
+	 
+//Reference: From Practical 2: Location based services via HTML5
 // code adapted from https://www.htmlgoodies.com/beyond/javascript/calculate-the-distance-between-two-points-inyour-web-apps.html
-
-
-
-            
-
-function getDistanceFromMultiplePoints(position) {
-var minDistance = 100000000000;
-var closestQuake = "";
-for(var i = 0; i < earthquakes.features.length; i++) {
-var obj = earthquakes.features[i];
-var distance = calculateDistance(position.coords.latitude,
-position.coords.longitude,obj.geometry.coordinates[0], obj.geometry.coordinates[1], 'K');
-if (distance < minDistance){
-minDistance = distance;
-closestQuake = obj.properties.place;
-}
-}
-alert("Earthquake: " + closestQuake + " is distance " + minDistance + "away");
-}
-
-
 
 function calculateDistance(lat1,lon1,lat2,lon2,unit){
 	var radlat1 = Math.PI * lat1/180;
