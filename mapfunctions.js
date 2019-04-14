@@ -92,11 +92,11 @@ mymap.closePopup();
 function startAnswerUpload(){
 	alert("start answer upload");
 	//receive the text box values
-	var question_id= document.getElementById("question_id").value;
+	var question_id= document.getElementById("questionID").value;
 	alert(question_id);
-	var answer_selected= document.getElementById("answer_selected").value;
+	var answer_selected= document.getElementById("answerSelected").value;
 	alert(answer_selected);
-	var correct_answer= document.getElementById("correct_answer").value;
+	var correct_answer= document.getElementById("answer").value;
 	alert(correct_answer);
 	//put values in poststring to send to the server, into database quizanswers
 	var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
