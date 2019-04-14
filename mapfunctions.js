@@ -56,6 +56,7 @@ return L.marker(latlng).bindPopup(htmlString);
 //mymap.fitBounds(quizLayer.getBounds());
 }
 
+//Reference: Adapted from Practicals 6 and 7 
 function checkAnswer(questionID) {
 // get the answer from the hidden div
 // NB - do this BEFORE you close the pop-up as when you close the pop-up the
@@ -76,6 +77,7 @@ correctAnswer = true;
 if (correctAnswer === false) {
 // they didn't get it right
 alert("Better luck next time");
+
 }
 // now close the popup
 mymap.closePopup();
@@ -83,5 +85,46 @@ mymap.closePopup();
 // call an AJAX routine using the data
 // the answerSelected variable holds the number of the answer
 //that the user picked
+}
+
+//Reference: Adapted from uploadData.js used in practicals from week 5 and week 6 
+//Adapted uploadData.js to upload the answer instead of the question as seen in uploadQuestion.js in the Question setting App repository 
+function startAnswerUpload(){
+	alert("start answer upload");
+	//receive the text box values
+	var question_id= document.getElementById("question_id").value;
+	alert(question_id);
+	var answer_selected= document.getElementById("answer_selected").value;
+	alert(answer_selected);
+	var correct_answer= document.getElementById("correct_answer").value;
+	alert(correct_answer);
+	//put values in poststring to send to the server, into database quizanswers
+	var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
+	
+	alert(postString);
+	//calling the processing function
+	processData(postString);
+}
+
+var client2;  // the global variable that holds the request, client was used for the uploadQuestion
+
+//Reference: Adapted from Practical 6 and 7
+function processData(postString) {
+    client2 = new XMLHttpRequest();
+    postString = postString + "&port_id=" + httpPortNumber;
+    var url = 'http://developer.cege.ucl.ac.uk:' + httpPortNumber + "/uploadAnswer";
+    client2.open('POST', url, true);
+    client2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    client2.onreadystatechange = answerUpload;
+    client2.send(postString);
+}
+
+//create the code to wait for the response from the data server, and process the response once it is received
+function answerUpload() {
+	//function listens out for the server to say that the data is ready
+	if (client.readyState == 4){
+		//change the DIV to show the response
+		document.getElementById("answerUploadResult").innerHTML= client.responseText;
+	}
 }
 
