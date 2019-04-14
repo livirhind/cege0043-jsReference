@@ -1,4 +1,4 @@
-        var markeruser;
+        var userMarker;
 
      
        
@@ -11,6 +11,7 @@
         function getPosition(position){
         	mymap.setView([position.coords.latitude, position.coords.longitude],15);
         }
+
         //Reference: Function to track the location of the user taken from Practical 2: Location based services via HTML5
         function trackLocation(){
 			if (navigator.geolocation){
@@ -24,10 +25,10 @@
         
         //Reference: Function taken from Practical 2 to show the position of the user 
          function showPosition(position){
-         	if(markeruser){
-         		mymap.removeLayer(markeruser);
+         	if(userMarker){
+         		mymap.removeLayer(userMarker);
          	}
-	        markeruser = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You are here</b>");
+	        userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You are here</b>");
             document.getElementById('showLocation').innerHTML = 'Latitude:' + position.coords.latitude + '<br>Longitude:' + position.coords.longitude;
 	         }
 
