@@ -3,16 +3,13 @@
 //Reference: zoomOnMap taken from Practical 2 (Location based services)
 //getQuizPoints taken from Practical 6 and 7 
 function startup() {
-	document.addEventListener('DOMContentLoaded', function(){
+   document.addEventListener('DOMContentLoaded', function(){
 		getPort();
-	},false)
-	document.addEventListener('DOMContentLoaded', function(){
-		zoomOnMap();
-	},false)
-	
-	document.addEventListener('DOMContentLoaded', function(){
+		trackLocation();
 		getQuizPoints();
+		alert("Please click on the help page at the bottom of the left menu for instructions");
 	},false);
 }
-
+	
+	
 

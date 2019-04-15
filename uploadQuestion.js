@@ -50,7 +50,7 @@ function startQuestionUpload(){
 }
 
 var client;  // the global variable that holds the request
-
+//Reference: From Practical 6 and 7 Adapted for the question setting App
 function processData(postString) {
     client = new XMLHttpRequest();
     postString = postString + "&port_id=" + httpPortNumber;
