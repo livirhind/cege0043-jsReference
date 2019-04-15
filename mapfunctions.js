@@ -96,7 +96,7 @@ var correct_answer=answer;
 var postString="question_id="+question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
 alert(postString);
 	//calling the processing function
-	processData(postString);
+	answerData(postString);
 }
 
 
@@ -104,7 +104,7 @@ alert(postString);
 var client2;  // the global variable that holds the request, client was used for the uploadQuestion
 
 //Reference: Adapted from Practical 6 and 7
-function processData(postString) {
+function answerData(postString) {
     client2 = new XMLHttpRequest();
     postString = postString + "&port_id=" + httpPortNumber;
     var url = 'http://developer.cege.ucl.ac.uk:' + httpPortNumber + "/uploadAnswer";
