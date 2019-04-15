@@ -4,6 +4,9 @@
 //getQuizPoints taken from Practical 6 and 7 
 function startup() {
 	document.addEventListener('DOMContentLoaded', function(){
+		getPort();
+	},false)
+	document.addEventListener('DOMContentLoaded', function(){
 		zoomOnMap();
 	},false)
 	
