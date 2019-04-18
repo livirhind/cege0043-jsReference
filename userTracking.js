@@ -2,7 +2,8 @@
 
      
        
-      //function to zoom into the location of the user, will also display the location of the quiz points
+      //Function to zoom into the location of the user, will also display the location of the quiz points
+      //Reference: Taken from Practical 2 location based services 
         function zoomOnMap(){
         	alert('Zooming in to display your location');
         	navigator.geolocation.getCurrentPosition(getPosition);
