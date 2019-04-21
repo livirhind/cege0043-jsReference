@@ -1,3 +1,5 @@
+//Reference: Port Detection in Practical for week 5 
+//To extract the required port number the port.xml file is ownloaded and the data is extracted, the http and https port numbers must be saved as global variables 
 var httpPortNumber;
 var httpsPortNumber;
 function getPort(){
