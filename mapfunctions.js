@@ -7,16 +7,16 @@ icon: 'play',
 markerColor: 'blue'
 });
 //the red marker (wrong answer)
-//var MarkerRed = L.AwesomeMarkers.icon({
-//icon: 'play',
-//markerColor: 'red'
-//});
+var MarkerRed = L.AwesomeMarkers.icon({
+icon: 'play',
+markerColor: 'red'
+});
 
 //the green marker (correct answer )
-//var MarkerGreen = L.AwesomeMarkers.icon({
-//icon: 'play',
-//markerColor: 'green'
-//});
+var MarkerGreen = L.AwesomeMarkers.icon({
+icon: 'play',
+markerColor: 'green'
+});
 
 //Reference: adapted from the LeafletFunctions.js used in practical 6 
  //creating the AJAX request to get the Questions data using an XMLHttpRequest
@@ -50,7 +50,7 @@ function loadQuizPoints(quizPoints){
 	var quizPointsjson = JSON.parse(quizPoints);
 	//question will appear in a popup instead of a div 
 	// add the JSON layer onto the map - it will appear using the default icons
-	quizlayer = L.geoJSON(quizPointsjson,
+	quizLayer = L.geoJSON(quizPointsjson,
 		{ 
 			pointToLayer: function(feature, latlng)
 			{
@@ -73,10 +73,10 @@ return L.marker(latlng, {icon:MarkerBlue}).bindPopup(htmlString);
 }
 }).addTo(mymap);
 
-mymap.fitBounds(quizlayer.getBounds());
+mymap.fitBounds(quizLayer.getBounds()); //map will zoom into the quiz location points 
 }
 
-//Reference: Adapted from Practicals 6 and 7 and changing colour of icons adapted from Practical 2 and https://leafletjs.com/reference-1.4.0.html#latlng
+//Reference: Adapted from Practicals 6 and 7 and changing colour of icons adapted from Practical 2 changing GEOjson icon and https://leafletjs.com/reference-1.4.0.html#latlng
 function checkAnswer(questionID) {
 // get the answer from the hidden div
 // NB - do this BEFORE you close the pop-up as when you close the pop-up the
@@ -96,11 +96,22 @@ answerSelected = i;
 if ((document.getElementById(questionID+"_"+i).checked) && (i ==answer)) {
 	alert ("Well done");
 correctAnswer = true;
+quizLayer.eachLayer(function(layer){ 
+if (layer.feature.properties.id == questionID){
+	return L.marker([layer.getLatLng().lat, layer.getLatLng().lng], {icon: MarkerGreen}).addTo(mymap);
+}})
 }
 }
 if (correctAnswer === false) {
 // they didn't get it right
 alert("Better luck next time");
+quizLayer.eachLayer(function(layer){
+	if (layer.feature.properties.id == questionID){
+		return L.marker([layer.getLatLng().lat, layer.getLatLng().lng], {icon: MarkerRed}).addTo(mymap);
+
+	}
+
+})
 }
 // now close the popup
 mymap.closePopup();
@@ -140,7 +151,7 @@ function answerUpload() {
 		
 }
 }
-
+//Attempt at advanced functionality 1 proximity alert 
 //Advanced functionality 1 quiz question pops up automatically using a proximity alert when the suer is close to the point. 
 //Reference: Adapted from Practical 6 and 7 Proximity Alert 
 //var userlat;
