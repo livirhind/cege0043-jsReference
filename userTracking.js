@@ -1,7 +1,7 @@
         var userMarker;
 
         //define the user's location lat and long for proximity alerts in advanced functionality 1
-        var userlat:
+        var userlat;
         var userlong;
 
      
