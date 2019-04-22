@@ -1,5 +1,9 @@
         var userMarker;
 
+        //define the user's location lat and long for proximity alerts in advanced functionality 1
+        var userlat:
+        var userlong;
+
      
        
       //Function to zoom into the location of the user, will also display the location of the quiz points
@@ -29,8 +33,10 @@
          	if(userMarker){
          		mymap.removeLayer(userMarker);
          	}
-	        userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You are here</b>");
-            document.getElementById('showLocation').innerHTML = 'Latitude:' + position.coords.latitude + '<br>Longitude:' + position.coords.longitude;
+         	userlat = position.coords.latitude;
+         	userlong = position.coords.longitude;
+	        userMarker = L.marker([userlat, userlong]).addTo(mymap).bindPopup("<b>You are here</b>");
+            document.getElementById('showLocation').innerHTML = 'Latitude:' + userlat + '<br>Longitude:' + userlong;
 	         }
 
 	 

@@ -1,12 +1,14 @@
 var client;
+
+
 //Reference: adapted from the LeafletFunctions.js used in practical 6 
  //creating the AJAX request to get the Questions data using an XMLHttpRequest
 	var xhrQuizPoints;
 	function getQuizPoints(){
 		alert('Getting the quiz data')
 		xhrQuizPoints = new XMLHttpRequest();
-		var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
-		url = url +"/getQuizPoints/"+httpPortNumber;
+		var url = "http://developer.cege.ucl.ac.uk:"+ httpPortNumber;
+		url = url +"/getQuizPoints/"+ httpPortNumber;
 		xhrQuizPoints.open("GET",url,true);
         xhrQuizPoints.onreadystatechange = QuizPointsResponse;  
         xhrQuizPoints.send();
@@ -24,6 +26,7 @@ var client;
 
 	
 	// convert the received data - which is text to JSON format and add it to the map 
+	//Reference: Adapted from Pactical 6 and 7 placing an html string in a popup 
 var quizLayer;
 function loadQuizPoints(quizPoints){
 	//convert the text to JSON
@@ -48,15 +51,15 @@ htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.i
 //feature.properties.correct_answer 
 htmlString = htmlString + "<div id=answer" + feature.properties.id +" hidden>1</div>";
 htmlString = htmlString + "</div>";
-return L.marker(latlng).bindPopup(htmlString);
+return L.marker(latlng, {icon: MarkerBlue}).bindPopup(htmlString);
 
 },
 }).addTo(mymap);
 
-//mymap.fitBounds(quizLayer.getBounds());
+mymap.fitBounds(quizlayer.getBounds());
 }
 
-//Reference: Adapted from Practicals 6 and 7 
+//Reference: Adapted from Practicals 6 and 7 and changing colour of icons adapted from Practical 2 and https://leafletjs.com/reference-1.4.0.html#latlng
 function checkAnswer(questionID) {
 // get the answer from the hidden div
 // NB - do this BEFORE you close the pop-up as when you close the pop-up the
@@ -76,12 +79,21 @@ answerSelected = i;
 if ((document.getElementById(questionID+"_"+i).checked) && (i ==answer)) {
 	alert ("Well done");
 correctAnswer = true;
+quizlayer.eachLayer(function(layer){
+	if (layer.feature.properties.id == questionID){
+		return L.marker([layer.getLatLng().lat, layer.getLatLng().lng], {icon: MarkerGreen}).addTo(mymap);
+	}
+})
 }
 }
 if (correctAnswer === false) {
 // they didn't get it right
 alert("Better luck next time");
-
+quizlayer.eachLayer(function(layer){
+	if (layer.feature.properties.id == questionID){
+		return L.marker([layer.getLatLng().lat, layer.getLatLng().lng], {icon: MarkerRed}).addTo(mymap);
+	}
+}
 }
 // now close the popup
 mymap.closePopup();
@@ -122,4 +134,50 @@ function answerUpload() {
 }
 }
 
+//Advanced functionality 1 quiz question pops up automatically using a proximity alert when the suer is close to the point. 
+//Reference: Adapted from Practical 6 and 7 Proximity Alert 
+//var userlat;
+//var userlong;
+function closestFormPoint(position) {
+// take the leaflet formdata layer
+// go through each point one by one
+// and measure the distance to Warren Street
+// for the closest point show the pop up of that point
+var minDistance = 0.015 ; //15 metres minimum distance 
+quizlayer.eachLayer(function(layer){
+var distance = calculateDistance(userlat,
+userlong,layer.getLatLng().lat, layer.getLatLng().lng, 'K');
+if (distance < minDistance){
+closestFormPoint = layer.feature.properties.id;
+}
+});
+// for this to be a proximity alert, the minDistance must be
+// closer than a given distance - you can check that here
+// using an if statement
+// show the popup for the closest point to the set location
+quizlayer.eachLayer(function(layer) {
+if (layer.feature.properties.id == closestFormPoint){
+layer.openPopup();
+}
+});
+}
 
+
+//Advanced Functionality 1 quiz points change colour when the question has been answered, red if wrong and green if correct
+//Reference: Practical 2 Step 2 Using Custom Icons for the GeoJSON
+//the blue marker (original question point)
+var MarkerBlue = L.AwesomeMarkers.icon({
+icon: 'play',
+markerColor: 'blue'
+});
+//the red marker (wrong answer)
+var MarkerRed = L.AwesomeMarkers.icon({
+icon: 'play',
+markerColor: 'red'
+});
+
+//the green marker (correct answer )
+var MarkerGreen = L.AwesomeMarkers.icon({
+icon: 'play',
+markerColor: 'green'
+});
