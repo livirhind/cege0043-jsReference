@@ -1,5 +1,22 @@
 var client;
+//Advanced Functionality 1 quiz points change colour when the question has been answered, red if wrong and green if correct
+//Reference: Practical 2 Step 2 Using Custom Icons for the GeoJSON
+//the blue marker (original question point)
+var MarkerBlue = L.AwesomeMarkers.icon({
+icon: 'play',
+markerColor: 'blue'
+});
+//the red marker (wrong answer)
+//var MarkerRed = L.AwesomeMarkers.icon({
+//icon: 'play',
+//markerColor: 'red'
+//});
 
+//the green marker (correct answer )
+//var MarkerGreen = L.AwesomeMarkers.icon({
+//icon: 'play',
+//markerColor: 'green'
+//});
 
 //Reference: adapted from the LeafletFunctions.js used in practical 6 
  //creating the AJAX request to get the Questions data using an XMLHttpRequest
@@ -51,9 +68,9 @@ htmlString = htmlString + "<button onclick='checkAnswer(" + feature.properties.i
 //feature.properties.correct_answer 
 htmlString = htmlString + "<div id=answer" + feature.properties.id +" hidden>1</div>";
 htmlString = htmlString + "</div>";
-return L.marker(latlng).bindPopup(htmlString);
+return L.marker(latlng, {icon:MarkerBlue}).bindPopup(htmlString);
 
-},
+}
 }).addTo(mymap);
 
 mymap.fitBounds(quizlayer.getBounds());
@@ -153,21 +170,3 @@ function answerUpload() {
 //}
 
 
-//Advanced Functionality 1 quiz points change colour when the question has been answered, red if wrong and green if correct
-//Reference: Practical 2 Step 2 Using Custom Icons for the GeoJSON
-//the blue marker (original question point)
-//var MarkerBlue = L.AwesomeMarkers.icon({
-//icon: 'play',
-//markerColor: 'blue'
-//});
-//the red marker (wrong answer)
-//var MarkerRed = L.AwesomeMarkers.icon({
-//icon: 'play',
-//markerColor: 'red'
-//});
-
-//the green marker (correct answer )
-//var MarkerGreen = L.AwesomeMarkers.icon({
-//icon: 'play',
-//markerColor: 'green'
-//});
