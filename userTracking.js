@@ -1,8 +1,8 @@
         var userMarker;
 
         //define the user's location lat and long for proximity alerts in advanced functionality 1
-        var userlat;
-        var userlong;
+        //var userlat;
+        //var userlong;
 
      
        
@@ -33,11 +33,8 @@
          	if(userMarker){
          		mymap.removeLayer(userMarker);
          	}
-         	userlat = position.coords.latitude;
-         	userlong = position.coords.longitude;
-	        userMarker = L.marker([userlat, userlong]).addTo(mymap).bindPopup("<b>You are here</b>");
-            document.getElementById('showLocation').innerHTML = 'Latitude:' + userlat + '<br>Longitude:' + userlong;
-	         }
+            userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You are here</b>");
+       }
 
 	 
 //Reference: From Practical 2: Location based services via HTML5
